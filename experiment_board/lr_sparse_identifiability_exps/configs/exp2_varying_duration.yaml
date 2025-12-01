@@ -1,0 +1,58 @@
+# Hyper-parameter study for the varyind duration of anomalies
+
+data:
+  lowrank:
+    dim: [100, 50, 24]
+    ranks: [5, 5, 5]
+    # std: 1.0
+  graph:
+    type: "grid"
+    n: 10
+    m: 10
+    periodic: false
+    seed: 0
+  anomaly:
+    amplitude: 0.25
+    num_anomalies: 1500
+    radius: 0
+    window_type: 'cosine' # 'boxcar' # 'taylor', 'cosine'
+    distribution: 'uniform'
+    local_dist: 'constant'
+    time_m: 3
+    local_m: 1
+    anomaly_spread: 'isotropic'
+  noise:
+    type: 'AWGN'
+    SNR: 20
+independent_var:
+  duration:
+    min: 1
+    max: 24
+models:
+  SNN_LOGN:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(E)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [3]
+    graph: 'temporal'
+    grouping: 'edge'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 150
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: [] 
+    gtvr_config: []
+    t: 0.12 # First run t: 0.16084
+  HoRPCA:
+    model: "HoRPCA"
+    name: "HoRPCA"
+    lr_modes: [1, 2, 3]
+    err_tol: 1.0e-6
+    maxit: 150
+    rho_update: 1
+    mu: 100
+    verbose: 0
+    t: 0.38062 # 0.38062

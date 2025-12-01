@@ -1,0 +1,102 @@
+# Hyper-parameter study for joint spatio-temporal grouping of the SNN-LOGN model
+
+data:
+  lowrank:
+    dim: [225, 50, 24]
+    ranks: [12, 5, 5]
+    # std: 1.0
+  graph:
+    type: "grid"
+    n: 15
+    m: 15
+    periodic: false
+    seed: 0
+  anomaly:
+    num_anomalies: 500
+    amplitude: 0.25
+    duration: 3
+    window_type: 'boxcar' #'cosine', 'boxcar'
+    distribution: 'bernoulli'
+    local_dist: 'constant'
+    time_m: 3
+    local_m: 1
+    radius: 1
+    anomaly_spread: 'isotropic'
+  noise:
+    type: 'AWGN'
+    SNR: 10
+independent_var:
+  duratii: [1,  3,  6, 12]
+study_config:
+  n_trials: 50
+  lda_gtv_min: 0.00000001
+  lda_gtv_max: 10
+  lda_gtv_log: True
+models:
+  HoRPCA:
+    model: "HoRPCA"
+    name: "HoRPCA"
+    lr_modes: [1, 2, 3]
+    err_tol: 1.0e-6
+    maxit: 100
+    rho_update: 1
+    mu: 100
+    verbose: 0
+  SNN_L1_GTV_T:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[L1+GTV(T)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [1]
+    graph: 'spatial'
+    grouping: 'neighbor'
+    r_hop: 0
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 100
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: [] 
+    gtvr_config:
+      - graph: 'temporal'
+        mode : [3]
+        p: 1
+        variation_type: GTV
+  SNN_LOGN_GTV_T:
+    model: SNN_LOGN_GTV
+    name: "[SNN]-[LOGN(T-E)+GTV(T)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [3]
+    graph: 'temporal'
+    grouping: 'edge'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 100
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: []
+    gtvr_config:
+      - graph: 'temporal'
+        mode : [3]
+        p: 1
+        variation_type: GTV
+  SNN_LOGN:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(T-E)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [3]
+    graph: 'temporal'
+    grouping: 'edge'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 100
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: []
+    gtvr_config: []
+    
+  

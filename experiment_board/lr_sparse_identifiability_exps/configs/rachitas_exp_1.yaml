@@ -1,0 +1,141 @@
+# Hyper-parameter study for joint spatio-temporal grouping of the SNN-LOGN model
+
+data:
+  lowrank:
+    dim: [40, 24, 7, 20]
+    ranks: [8,8,5,5]
+    # std: 1.0
+  graph:
+    type: "grid"
+    n: 8
+    m: 5
+    periodic: false
+    seed: 0
+  anomaly:
+    num_anomalies: 450
+    amplitude: 0.25
+    duration: 1 # 4, 8, 12, 16, 20, 24 
+    radius: 2
+    window_type: 'boxcar' #'cosine', 'boxcar'
+    distribution: 'bernoulli'
+    local_dist: 'constant'
+    time_m: 2
+    local_m: 1
+    anomaly_spread: 'isotropic'
+  # noise:
+  #   type: 'AWGN'
+  #   SNR: 20
+independent_var:
+  t:
+    min: 0
+    max: 1
+    resolution: 50
+models:
+  HoRPCA:
+    model: "HoRPCA"
+    name: "HoRPCA"
+    lr_modes: [1, 2, 3]
+    err_tol: 1.0e-6
+    maxit: 150
+    rho_update: 1
+    mu: 100
+    verbose: 0
+  LR_STSS:
+    model: "SNN_LOGN_GTV"
+    name: "LR-STSS"
+    lr_modes: [1, 2, 3]
+    graph_modes: [1,3]
+    graph: 'spatio-temporal'
+    graph_product: 'cartesian'
+    grouping: 'neighbor'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 250
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: [] 
+    gtvr_config: []
+  SNN_LOGN_2:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(S-N)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [1]
+    graph: 'spatial'
+    grouping: 'neighbor'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 150
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: [] 
+    gtvr_config: []
+  SNN_LOGN_3:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(T-E)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [3]
+    graph: 'temporal'
+    grouping: 'edge'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 150
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: []
+    gtvr_config: []
+  # SNN_LOGN:
+  #   model: "SNN_LOGN_GTV"
+  #   name: "[SNN]-[LOGN(StrongST-N)]"
+  #   lr_modes: [1, 2, 3]
+  #   graph_modes: [1,3]
+  #   graph: 'spatio-temporal'
+  #   grouping: 'neighbor'
+  #   r_hop: 1
+  #   weighing: 'size_normalized_inv'
+  #   err_tol: 1.0e-6
+  #   max_iter: 250
+  #   rho_update: 1
+  #   rho_update_thr: 100
+  #   verbose: 0
+  #   lda_gtvs: [] 
+  #   gtvr_config: []
+  # SNN_LOGN_4:
+  #   model: "SNN_LOGN_GTV"
+  #   name: "[SNN]-[LOGN(CartesianST-E)]"
+  #   lr_modes: [1, 2, 3]
+  #   graph_modes: [1,3]
+  #   graph: 'spatio-temporal'
+  #   graph_product: 'cartesian'
+  #   grouping: 'edge'
+  #   r_hop: 1
+  #   weighing: 'size_normalized_inv'
+  #   err_tol: 1.0e-6
+  #   max_iter: 150
+  #   rho_update: 1
+  #   rho_update_thr: 100
+  #   verbose: 0
+  #   lda_gtvs: []
+  #   gtvr_config: []
+  # SNN_LOGN_5:
+  #   model: "SNN_LOGN_GTV"
+  #   name: "[SNN]-[LOGN(CartesianST-N2)]"
+  #   lr_modes: [1, 2, 3]
+  #   graph_modes: [3,1]
+  #   graph: 'spatio-temporal'
+  #   graph_product: 'cartesian'
+  #   grouping: 'neighbor'
+  #   r_hop: 1
+  #   weighing: 'size_normalized_inv'
+  #   err_tol: 1.0e-6
+  #   max_iter: 150
+  #   rho_update: 1
+  #   rho_update_thr: 100
+  #   verbose: 0
+  #   lda_gtvs: []
+  #   gtvr_config: []

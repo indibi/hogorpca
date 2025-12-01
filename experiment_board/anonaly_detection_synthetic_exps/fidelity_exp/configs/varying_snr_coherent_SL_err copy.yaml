@@ -1,0 +1,129 @@
+# Default Experiment Configuration for GTV-EXP-0
+project_name: 'AD_Journal_Experiments'
+group_name: 'gtv_vs_logn_exp'
+config_name: 'varying_snr_coherent_SL_err'
+tags: ['smooth', 'SL_err', 'repeated']
+notes: 'Description of the experiment
+
+--------------------------
+
+In this experiment, we are trying to showcase when the GTV regularization
+has an advantage over LOGN regularization.
+'
+data:
+  lowrank:
+    dim: [225, 50, 24]
+    ranks: [30, 20, 15]
+    # std: 1.0
+  graph:
+    type: "grid"
+    n: 15
+    m: 15
+    periodic: false
+    seed: 0
+  anomaly:
+    num_anomalies: 200
+    amplitude: 0.125
+    duration: 2 # 4
+    window_type: 'boxcar' #'cosine', 'boxcar'
+    distribution: 'uniform'
+    local_dist: 'constant'
+    time_m: 3
+    local_m: 1
+    radius: 4 # 2
+    anomaly_spread: 'isotropic'
+  repeated: 1
+  noise:
+    type: 'AWGN'
+    SNR: 25
+independent_var:
+  keys: ['noise', 'SNR']
+  range: [  32, 28, 24, 20, 16, 12, 8, 4]
+dependent_var:
+  - AUC-PRC
+  - AUC-ROC
+  - S_err
+  - L_err
+  - rel_err
+study_config:
+  metrics: ['max_rel_err']
+  overwrite: True
+  directions: ['minimize']
+  n_trials: 800
+  lda_gtv_min: 0.00001
+  lda_gtv_max: 10
+  lda_gtv_log: True
+  search_rho: False
+models:
+  # HoRPCA:
+  #   model: "SNN_LOGN_GTV"
+  #   name: "HoRPCA"
+  #   lr_modes: [1, 2, 3]
+  #   graph_modes: [1]
+  #   graph: 'spatial'
+  #   grouping: 'neighbor'
+  #   r_hop: 0
+  #   weighing: 'size_normalized_inv'
+  #   err_tol: 0.25
+  #   max_iter: 200
+  #   rho_update: 'domain_parametrization'
+  #   rho_update_thr: 100
+  #   verbose: 0
+  #   lda_gtvs: []
+  #   gtvr_config: []
+  SNN_L1_GTV:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[L1+GTV(S)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [1]
+    graph: 'spatial'
+    grouping: 'neighbor'
+    r_hop: 0
+    weighing: 'size_normalized_inv'
+    err_tol: 0.25
+    max_iter: 150
+    rho_update: 'domain_parametrization'
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: [] 
+    gtvr_config:
+      - graph: 'spatial'
+        mode : [1]
+        p: 2
+        variation_type: GTV
+  # SNN_LOGN:
+  #   model: "SNN_LOGN_GTV"
+  #   name: "[SNN]-[LOGN(S-N)]"
+  #   lr_modes: [1, 2, 3]
+  #   graph_modes: [1]
+  #   graph: 'spatial'
+  #   grouping: 'neighbor'
+  #   r_hop: 1
+  #   weighing: 'size_normalized_inv'
+  #   err_tol: 0.25
+  #   max_iter: 150
+  #   rho_update: 'domain_parametrization'
+  #   rho_update_thr: 100
+  #   verbose: 0
+  #   lda_gtvs: []
+  #   gtvr_config: []
+  # SNN_LOGN_GTV:
+  #   model: "SNN_LOGN_GTV"
+  #   name: "[SNN]-[LOGN(S-N)+GTV(S)]"
+  #   lr_modes: [1, 2, 3]
+  #   graph_modes: [1]
+  #   graph: 'spatial'
+  #   grouping: 'neighbor'
+  #   r_hop: 1
+  #   weighing: 'size_normalized_inv'
+  #   err_tol: 0.25
+  #   max_iter: 150
+  #   rho_update: 'domain_parametrization'
+  #   rho_update_thr: 100
+  #   verbose: 0
+  #   lda_gtvs: []
+  #   gtvr_config:
+  #     - graph: 'spatial'
+  #       mode : [1]
+  #       p: 2
+  #       variation_type: GTV

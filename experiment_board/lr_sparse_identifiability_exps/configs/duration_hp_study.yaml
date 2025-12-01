@@ -1,0 +1,108 @@
+# Hyper-parameter study for the varyind duration of anomalies
+
+data:
+  lowrank:
+    dim: [100, 50, 24]
+    ranks: [5, 5, 5]
+    # std: 1.0
+  graph:
+    type: "grid"
+    n: 10
+    m: 10
+    periodic: false
+    seed: 0
+  anomaly:
+    num_anomalies: 1500
+    amplitude: 0.25
+    duration: 4 # 4, 8, 12, 16, 20, 24 
+    radius: 0
+    window_type: 'cosine' # 'boxcar' # 'taylor', 'cosine'
+    distribution: 'uniform'
+    local_dist: 'constant'
+    time_m: 3
+    local_m: 1
+    anomaly_spread: 'isotropic'
+  noise:
+    type: 'AWGN'
+    SNR: 20
+independent_var:
+  t:
+    min: 0
+    max: 1
+    resolution: 50
+models:
+  HoRPCA:
+    model: "HoRPCA"
+    name: "HoRPCA"
+    lr_modes: [1, 2, 3]
+    err_tol: 1.0e-6
+    maxit: 150
+    rho_update: 1
+    mu: 100
+    verbose: 0
+  SNN_LOGN:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(E)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [3]
+    graph: 'temporal'
+    grouping: 'edge'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 250
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    lda_gtvs: [] 
+    gtvr_config: []
+dependent_vars:
+  - BIC
+  - AUC-ROC
+  - AUC-PRC
+  - S-LV-1-median
+  - S-LV-1-q1
+  - S-LV-1-q3
+  - S-LV-1-upper_fence
+  - S-LV-2-median
+  - S-LV-2-q1
+  - S-LV-2-q3
+  - S-LV-2-upper_fence
+  - S-LV-3-median
+  - S-LV-3-q1
+  - S-LV-3-q3
+  - S-LV-3-upper_fence
+  - S_diff
+  - L_diff
+  - L_nuc_1
+  - L_nuc_2
+  - L_nuc_3
+  - S_nuc_1
+  - S_nuc_2
+  - S_nuc_3
+  - L_nuc_1_eps
+  - L_nuc_2_eps
+  - L_nuc_3_eps
+  - S_nuc_1_eps
+  - S_nuc_2_eps
+  - S_nuc_3_eps
+  - L1
+  - L1_eps
+  - S1
+  - S1_eps
+  - nonzero_S
+  - nonzero_L
+  - ranks_S1
+  - ranks_S2
+  - ranks_S3
+  - ranks_L1
+  - ranks_L2
+  - ranks_L3
+  - S_fro
+  - L_fro
+  - L_fro_eps
+  - S_fro_eps
+  - S_err
+  - L_err
+  - tol
+  - diff

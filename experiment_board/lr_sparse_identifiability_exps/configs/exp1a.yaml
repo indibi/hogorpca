@@ -1,0 +1,86 @@
+# LR-S.Sparse Exp 1a Identifiability (HP) Study
+# This experiment is to study the identifiability of the hyperparameters of the HoRPCA and SNN-LOGS models
+
+data:
+  lowrank:
+    dim: [100, 50, 24]
+    ranks: [5, 5, 5]
+    # std: 1.0
+  graph:
+    type: "grid"
+    n: 10
+    m: 10
+    periodic: false
+    seed: 0
+  anomaly:
+    num_anomalies: 250
+    amplitude: 0.25
+    duration: 1
+    radius: 2
+    window_type: 'boxcar'
+    distribution: 'uniform'
+    local_dist: 'constant'
+    time_m: 3
+    local_m: 1
+    anomaly_spread: 'isotropic'
+independent_var:
+  NoA: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,  1200,  1400,  1600,  2000,  2400,  2800,  3200, 3600]
+models:
+  HoRPCA:
+    model: "HoRPCA"
+    name: "HoRPCA"
+    lr_modes: [1, 2, 3]
+    t: 0.35437
+    err_tol: 1.0e-6
+    maxit: 150
+    rho_update: 1
+    mu: 100
+    verbose: 0
+  SNN_LOGS_1:
+    model: "SNN_LOGS"
+    name: "[SNN]-[LOGS(N1)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [1]
+    grouping: 'neighbor'
+    r_hop: 1
+    weighing: 'size_normalized'
+    t: 0.076156
+    err_tol: 1.0e-6
+    max_iter: 150
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+  SNN_LOGS_2:
+    model: "SNN_LOGS"
+    name: "[SNN]-[LOGS(E)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [1]
+    grouping: 'edge'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    t: 0.15938
+    err_tol: 1.0e-6
+    max_iter: 150
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+  SNN_LOGS_3:
+    model: "SNN_LOGS"
+    name: "[SNN]-[LOGS(/N1)]"
+    lr_modes: [1, 2, 3]
+    graph_modes: [1]
+    grouping: 'neighbor'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    t: 0.25687
+    err_tol: 1.0e-6
+    max_iter: 150
+    rho_update: 1
+    rho_update_thr: 100
+    verbose: 0
+    
+  
+    
+
+
+

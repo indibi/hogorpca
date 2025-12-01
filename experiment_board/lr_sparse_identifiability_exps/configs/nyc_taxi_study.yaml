@@ -1,0 +1,64 @@
+# NYC Yellow Taxi Dataset Anomaly Detection Study
+
+independent_var:
+  t:
+    min: 0
+    max: 1
+    resolution: 50
+models:
+  # HoRPCA:
+  #   model: "HoRPCA"
+  #   name: "HoRPCA"
+  #   lr_modes: [1, 2, 4]
+  #   err_tol: 1.0e-6
+  #   maxit: 300
+  #   rho: 0.75
+  #   rho_update: 1
+  #   mu: 100
+  #   verbose: 0
+  #   multipliers:
+  #     lambda: 1
+  #     psi_1: 490
+  #     psi_2: 165
+  #     psi_3: 0
+  #     psi_4: 3
+  SNN_LOGS_N:
+    model: "SNN_LOGS"
+    name: "[SNN]-[LOGN(N)]"
+    lr_modes: [1, 2, 4]
+    graph_modes: [4]
+    grouping: 'neighbor'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 200
+    rho_update: 1
+    rho: 0.5
+    rho_update_thr: 100
+    verbose: 0
+    multipliers:
+      lambda: 2 # 0.01 # 1 # 2
+      psi_1: 490 # 1 # 490
+      psi_2: 165 # 1 # 165
+      psi_3: 0 #
+      psi_4: 3 # 1 # 3
+  SNN_LOGS_E:
+    model: "SNN_LOGS"
+    name: "[SNN]-[LOGN(E)]"
+    lr_modes: [1, 2, 4]
+    graph_modes: [4]
+    grouping: 'edge'
+    r_hop: 1
+    weighing: 'size_normalized_inv'
+    err_tol: 1.0e-6
+    max_iter: 200
+    rho_update: 1
+    rho: 0.5
+    rho_update_thr: 100
+    verbose: 0
+    multipliers:
+      lambda: 2 # 0.01 # 1 # 2
+      psi_1: 490 # 1 # 490
+      psi_2: 165 # 1 # 165
+      psi_3: 0 #
+      psi_4: 3 # 1 # 3

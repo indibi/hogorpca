@@ -1,0 +1,82 @@
+# Hyper-parameter search for GoRPCA paper models on 2018 NYC Taxi dataset
+# event detection
+model_configs:
+  HoRPCA_1:
+    model: 'HoRPCA'
+    name: 'HoRPCA'
+    model_control:
+      lr_modes: [1,2,3,4]
+      err_tol: 1.0e-6
+      maxit: 150
+      rho_update: 1
+      mu: 100
+      verbose: 0
+      rho: 0.0002
+      device: 'cuda:0'
+    search_space:
+      scheme: 'auto' # 'grid', 'constrained_auto', 'constrained_grid'
+  SNN_LOGN_SN:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(S-N)]"
+    model_control:
+      lr_modes: [1, 2, 3, 4]
+      graph_modes: [1]
+      domain: 'spatial'
+      grouping: 'neighbor'
+      rho: 0.0002
+      device: 'cuda:2'
+      r_hop: 1
+      weighing: 'size_normalized_inv'
+      err_tol: 1.0e-6
+      max_iter: 150
+      rho_update: 1
+      rho_update_thr: 100
+      verbose: 0
+      lda_gtvs: []
+      gtvr_config: []
+    search_space:
+      scheme: 'auto'
+  SNN_LOGN_TE:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(T-E)]"
+    model_control:
+      lr_modes: [1, 2, 3, 4]
+      graph_modes: [4]
+      domain: 'temporal'
+      grouping: 'edge'
+      rho: 0.0002
+      device: 'cuda:1'
+      r_hop: 1
+      weighing: 'size_normalized_inv'
+      err_tol: 1.0e-6
+      max_iter: 150
+      rho_update: 1
+      rho_update_thr: 100
+      verbose: 0
+      lda_gtvs: []
+      gtvr_config: []
+    search_space:
+      scheme: 'auto'
+  SNN_LOGN_STN:
+    model: "SNN_LOGN_GTV"
+    name: "[SNN]-[LOGN(ST-N)]"
+    model_control:
+      lr_modes: [1, 2, 3, 4]
+      graph_modes: [1,4]
+      domain: 'spatio_temporal'
+      grouping: 'neighbor'
+      rho: 0.0002
+      device: 'cuda:1'
+      r_hop: 1
+      weighing: 'size_normalized_inv'
+      err_tol: 1.0e-6
+      max_iter: 150
+      rho_update: 1
+      rho_update_thr: 100
+      verbose: 0
+      lda_gtvs: []
+      gtvr_config: []
+    search_space:
+      scheme: 'auto'
+
+    

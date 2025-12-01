@@ -1,0 +1,618 @@
+gic_5:
+  metric: 'gic_5'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 100
+  psi_min: 1.0e-4
+  psi_max: 2.0e+1
+  psi_log: True
+  lda_min: 1.0e-4
+  lda_max: 2.0e+1
+  lda_log: True
+  lda_gtv_min: 1.0e-7
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+gic_1:
+  metric: 'gic_1'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 100
+  psi_min: 1.0e-6
+  psi_max: 2.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+concentrations_hm:
+  metric: 'Concentrations_Harmonic_Mean'
+  overwrite: False
+  direction: 'maximize'
+  sample_simplex: False
+  n_trials: 100
+  psi_min: 1.0e-6
+  psi_max: 2.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+gic_3:
+  metric: 'gic_3'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 100
+  psi_min: 1.0e-4
+  psi_max: 2.0e+1
+  psi_log: True
+  lda_min: 1.0e-4
+  lda_max: 2.0e+1
+  lda_log: True
+  lda_gtv_min: 1.0e-7
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+dof:
+  metric: 'dof'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 100
+  psi_min: 1.0e-6
+  psi_max: 2.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-7
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+gic_6:
+  metric: 'gic_6'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: True
+  n_trials: 100
+  # psi_min: 1.0e-4
+  # psi_max: 2.0e+1
+  # psi_log: True
+  # lda_min: 1.0e-4
+  # lda_max: 2.0e+1
+  # lda_log: True
+  lda_gtv_min: 1.0e-7
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+au_prc:
+  metric: 'au_prc'
+  overwrite: True
+  direction: 'maximize'
+  sample_simplex: True
+  n_trials: 100
+  # psi_min: 1.0e-4
+  # psi_max: 2.0e+1
+  # psi_log: True
+  # lda_min: 1.0e-4
+  # lda_max: 2.0e+1
+  # lda_log: True
+  lda_gtv_min: 1.0e-7
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+au_roc:
+  metric: 'au_roc'
+  overwrite: True
+  direction: 'maximize'
+  sample_simplex: True
+  n_trials: 200
+  # psi_min: 1.0e-4
+  # psi_max: 2.0e+1
+  # psi_log: True
+  # lda_min: 1.0e-4
+  # lda_max: 2.0e+1
+  # lda_log: True
+  lda_gtv_min: 1.0e-7
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+# manual_gic_2:
+#   metric: 'gic_2'
+gic_1_two_phase:
+  metric: 'gic_1'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  psi_log: False
+  psi_min: 0.0
+  psi_max: 1.0
+  lda_min: 0.0
+  lda_max: 1.0
+  lda_log: False
+  n_trials: 150
+  scheme: 'simple_two_phase'
+  manual: True
+  phase_1:
+    lda_gtvs: [1.0e-7, 1.0e-7]
+    t_min: 0.0
+    t_max: 0.4
+    num_step: 80
+  phase_2:
+    t_num_step: 3
+    lda_gtv_min: [1.0e-8, 1.0e-8]
+    lda_gtv_max: [1.0e-4, 1.0e-4]
+    lda_gtv_num_step: [15, 5]
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+gic_1_two_phase_nyc:
+  metric: 'gic_1'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  psi_log: False
+  psi_min: 0.0
+  psi_max: 1.0
+  lda_min: 0.0
+  lda_max: 1.0
+  lda_log: False
+  n_trials: 150
+  scheme: 'simple_two_phase'
+  manual: True
+  phase_1:
+    lda_gtvs: [1.0e-7, 1.0e-7]
+    t_min: 0.0
+    t_max: 1.0
+    num_step: 80
+  phase_2:
+    t_num_step: 3
+    lda_gtv_min: [1.0e-8, 1.0e-8]
+    lda_gtv_max: [1.0e-4, 1.0e-4]
+    lda_gtv_num_step: [15, 5]
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+au_prc_two_phase:
+  metric: 'au_prc'
+  overwrite: True
+  direction: 'maximize'
+  sample_simplex: False
+  psi_log: False
+  psi_min: 0.0
+  psi_max: 1.0
+  lda_min: 0.0
+  lda_max: 1.0
+  lda_log: False
+  n_trials: 150
+  scheme: 'simple_two_phase'
+  manual: True
+  phase_1:
+    lda_gtvs: [1.0e-7, 1.0e-7]
+    t_min: 0.0
+    t_max: 1.0
+    num_step: 80
+  phase_2:
+    t_num_step: 3
+    lda_gtv_min: [1.0e-8, 1.0e-8]
+    lda_gtv_max: [1.0e-4, 1.0e-4]
+    lda_gtv_num_step: [15, 5]
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+gic_1_conditional_two_phase_nyc:
+  metric: 'gic_1'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  psi_log: False
+  psi_min: 0.0
+  psi_max: 1.0
+  lda_min: 0.0
+  lda_max: 1.0
+  lda_log: False
+  n_trials: 150
+  scheme: 'conditional_two_phase'
+  manual: True
+  phase_1:
+    lda_gtvs: [1.0e-7, 1.0e-7]
+    t_min: 0.0
+    t_max: 0.4
+    num_step: 80
+  phase_2:
+    condition_query: 'non_zero_S_ratio >= 0.03'
+    t_num_step: 3
+    lda_gtv_min: [1.0e-8, 1.0e-8]
+    lda_gtv_max: [1.0e-4, 1.0e-4]
+    lda_gtv_num_step: [15, 5]
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+total_detected_events_two_phase_nyc:
+  metric: 'scoring_total_detected_events'
+  overwrite: True
+  direction: 'maximize'
+  sample_simplex: False
+  psi_log: False
+  psi_min: 0.0
+  psi_max: 1.0
+  lda_min: 0.0
+  lda_max: 1.0
+  lda_log: False
+  n_trials: 150
+  scheme: 'simple_two_phase'
+  manual: True
+  phase_1:
+    lda_gtvs: [1.0e-7, 1.0e-7]
+    t_min: 0.0
+    t_max: 1.0
+    num_step: 80
+  phase_2:
+    t_num_step: 3
+    lda_gtv_min: [1.0e-8, 1.0e-8]
+    lda_gtv_max: [1.0e-4, 1.0e-4]
+    lda_gtv_num_step: [15, 5]
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-4
+  lda_gtv_log: True
+  search_rho: False
+total_detected_events_nyc:
+  metric: 'scoring_total_detected_events'
+  overwrite: False
+  calculate_df: False
+  direction: 'maximize'
+  sample_simplex: False
+  n_trials: 300
+  # psi_min: 1.0e-8
+  # psi_max: 2.0e+1
+  # psi_log: True
+  # lda_min: 1.0e-8
+  # lda_max: 2.0e+2
+  # lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+total_detected_events_nyc_simplex:
+  metric: 'scoring_total_detected_events'
+  overwrite: False
+  calculate_df: False
+  direction: 'maximize'
+  sample_simplex: True
+  n_trials: 300
+  # psi_min: 1.0e-8
+  # psi_max: 2.0e+1
+  # psi_log: True
+  # lda_min: 1.0e-8
+  # lda_max: 2.0e+2
+  # lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+gic_1_nyc_constrained:
+  metric: 'gic_1'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_min: 1.0e-4
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-4
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 50
+    constraints_func_cfg:
+      metrics: ['non_zero_S_ratio']
+      bounds: [[0.03, ~]]
+      storage_keys: ['user_attrs']
+res_score_gic_1_nyc_constrained:
+  metric: 'gic_1'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_min: 1.0e-4
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-4
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'residual'
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    # constraints_func_cfg:
+    #   metrics: ['non_zero_S_ratio']
+    #   bounds: [[0.03, ~]]
+    #   storage_keys: ['user_attrs']
+my_nn_weight_abs_S_score_gic_1_nyc_constrained:
+  metric: 'gic_1'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-4
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-4
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'abs_S'
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    constraints_func_cfg:
+      metrics: ['non_zero_S_ratio']
+      bounds: [[0.03, ~]]
+      storage_keys: ['user_attrs']
+my_nn_weight_abs_S_score_dof_nyc_constrained:
+  metric: 'dof'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-6
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'abs_S'
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    constraints_func_cfg:
+      metrics: ['non_zero_S_ratio']
+      bounds: [[0.03, 0.15]]
+      storage_keys: ['user_attrs']
+emres_nn_weight_res_score_gic_1_nyc_constrained:
+  metric: 'gic_1'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'mode_nn_weights'
+  psi_min: 1.0e-4
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-4
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'residual'
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    constraints_func_cfg:
+      metrics: ['non_zero_S_ratio']
+      bounds: [[0.03, ~]]
+      storage_keys: ['user_attrs']
+rbf_res_score_gic_3_nyc_constrained:
+  metric: 'gic_3'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-4
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+0
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'residual'
+  spatial_edge_weighting:
+    method: 'rbf'
+    c: 0.05
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    constraints_func_cfg:
+      metrics: ['non_zero_S_ratio']
+      bounds: [[0.03, ~]]
+      storage_keys: ['user_attrs']
+median_res_score_gic_3_nyc_constrained:
+  metric: 'gic_3'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-4
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+0
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'residual'
+  spatial_edge_weighting:
+    method: 'median'
+    c: 1.0
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    constraints_func_cfg:
+      metrics: ['non_zero_S_ratio']
+      bounds: [[0.03, ~]]
+      storage_keys: ['user_attrs']
+rbf_abs_S_score_gic_3_nyc_constrained:
+  metric: 'gic_3'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-6
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+0
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'abs_S'
+  spatial_edge_weighting:
+    method: 'rbf'
+    c: 0.05
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    constraints_func_cfg:
+      metrics: ['non_zero_S_ratio']
+      bounds: [[0.03, ~]]
+      storage_keys: ['user_attrs']
+  
+rbf_abs_S_score_manual:
+  metric: 'gic_3'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-6
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+0
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0
+  lda_gtv_log: True
+  search_rho: False
+  
+rbf_anchored_two_phase_gic_1:
+  metric: 'gic_1'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  psi_log: False
+  # psi_min: 0.0
+  # psi_max: 1.0
+  lda_min: 4.817e-8
+  lda_max: 4.817e-2
+  lda_log: False
+  n_trials: 150
+  scheme: 'anchored_two_phase'
+  lda_anchor: 0.013 # 4.817e-5
+  manual: True
+  phase_1:
+    lda_gtvs: [4.817e-5, 4.817e-5]
+    m_min: -1
+    m_max: +1
+    num_step: 40
+  phase_2:
+    lda_gtv_min: [4.817e-7, 4.817e-7]
+    lda_gtv_max: [4.817e-3, 4.817e-3]
+    lda_gtv_num_step: [40, 5]
+  anomaly_scoring: 'abs_S'
+  spatial_edge_weighting:
+    method: 'rbf'
+    c: 0.05
+my_nn_weight_abs_S_score_gic_1_nyc:
+  metric: 'gic_1'
+  overwrite: False
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-6
+  psi_max: 1.0e+1
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'abs_S'
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    # constraints_func_cfg:
+    #   metrics: ['non_zero_S_ratio']
+    #   bounds: [[0.03, ~]]
+    #   storage_keys: ['user_attrs']
+my_nn_weight_abs_S_score_dof_nyc:
+  metric: 'dof'
+  overwrite: True
+  direction: 'minimize'
+  sample_simplex: False
+  n_trials: 300
+  psi_weighting: 'normalized_sval_concentration_weights'
+  psi_min: 1.0e-6
+  psi_max: 1.0e+2
+  psi_log: True
+  lda_min: 1.0e-6
+  lda_max: 2.0e+2
+  lda_log: True
+  lda_gtv_min: 1.0e-8
+  lda_gtv_max: 1.0e-2
+  lda_gtv_log: True
+  search_rho: False
+  sampler: 'GPSampler'
+  anomaly_scoring: 'abs_S'
+  sampler_cfg:
+    seed: 0
+    n_startup_trials: 20
+    # constraints_func_cfg:
+    #   metrics: ['non_zero_S_ratio']
+    #   bounds: [[0.03, 0.15]]
+    #   storage_keys: ['user_attrs']

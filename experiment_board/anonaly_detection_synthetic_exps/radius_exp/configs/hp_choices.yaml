@@ -1,0 +1,8 @@
+constant_diffusion_SL_rel_err_tpe:
+  HORPCA_F:
+    6: 5
+  SNN_LOGNSN_F:
+    0: 1
+incoherent_diffusion_SL_rel_err_tpe:
+  SNN_LOGNSN_F:
+    0: 1
