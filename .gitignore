@@ -32,7 +32,9 @@ parts/
 sdist/
 var/
 wheels/
-data/
+data/msl_smap/
+data/server_machine_dataset/
+
 share/python-wheels/
 *.egg-info/
 .installed.cfg
