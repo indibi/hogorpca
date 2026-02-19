@@ -1,8 +1,0 @@
-temporally_grouped_SL_rel_err_tpe:
-  SNN_LOGNTE_GTVT_F:
-    9: 7
-    11: 13
-incoherent_spatiotemporally_grouped_SL_rel_err_tpe:
-  SNN_L1_GTVST_F:
-    9: 7
-    11: 13

@@ -1,0 +1,23 @@
+coherent_SL_rel_err_tpe:
+  SNN_L1_GTVS_F:
+    4: 12
+    8: 12
+  HORPCA_F:
+    4: 16
+    8: 16
+    12: 16
+  HORPCA:
+    4: 16
+    8: 16
+    12: 16
+incoherent_SL_rel_err_tpe:
+  SNN_L1_GTVS_F:
+    4: 16   # For incoherent setting, the hyper-parameter search
+    8: 16   # based on rel-err(S)+rel-err(L) is forcing the S to
+    12: 16  # go to zero when the SNR is low and using the SNR = 16dB
+            # for those settings is more meaningful.
+  HORPCA_F:
+    4: 16
+    8: 16
+    12: 16
+  

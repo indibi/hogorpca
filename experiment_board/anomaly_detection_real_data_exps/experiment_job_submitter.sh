@@ -62,7 +62,7 @@ module load Conda/3
 conda activate ml_gsp
 
 # Change to the specified directory
-cd /mnt/home/indibimu/repos/ML_GSP/experiment_board/smd_anomaly_detection
+cd ${HOME}/repos/ML_GSP/experiment_board/smd_anomaly_detection
 
 # Execute the Python script with arguments
 python smd_experiment_runner.py ${models} --machine_id ${m_id} --channel_id ${ch_id} --metric ${metric} ${extra_args}
