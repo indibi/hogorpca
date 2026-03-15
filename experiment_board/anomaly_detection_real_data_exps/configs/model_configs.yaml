@@ -258,6 +258,38 @@ SNN_LOGN_sn:
   verbose: 0
   lda_gtvs: []
   gtvr_config: []
+SNN_LOGNSE:
+  model: "SNN_LOGN_GTV"
+  name: "[SNN]-[LOGN(S-E)]"
+  lr_modes: [1, 2, 3, 4]
+  graph_modes: [1]
+  graph: 'spatial'
+  grouping: 'edge'
+  r_hop: 1
+  weighing: 'size_normalized'
+  err_tol: 0.005
+  max_iter: 500 # 5000
+  rho_update: 1
+  rho_update_thr: 100
+  verbose: 0
+  lda_gtvs: []
+  gtvr_config: []
+SNN_LOGNSTE:
+  model: "SNN_LOGN_GTV"
+  name: "[SNN]-[LOGN(ST-E)]"
+  lr_modes: [1, 2, 3, 4]
+  graph_modes: [1]
+  graph: 'spatial'
+  grouping: 'edge'
+  r_hop: 1
+  weighing: 'size_normalized'
+  err_tol: 0.005
+  max_iter: 500 # 5000
+  rho_update: 1
+  rho_update_thr: 100
+  verbose: 0
+  lda_gtvs: []
+  gtvr_config: []
 SNN_LOGN_SN_GTV_T:
   model: "SNN_LOGN_GTV"
   name: "[SNN]-[LOGN(S-N)+GTV(T)]"
@@ -362,7 +394,7 @@ SNN_L1_GTV_T:
   grouping: 'neighbor'
   r_hop: 0
   soft_constrained: False
-  weighing: 'size_normalized_inv'
+  weighing: 'size_normalized'
   err_tol: 0.005
   max_iter: 500 # 5000
   rho_update: 'domain_parametrization'
@@ -429,6 +461,32 @@ SNN_LOGNST_sn:
   verbose: 0
   lda_gtvs: []
   gtvr_config: []
+SNN_LOGNSE_GTVS_GTVT:
+  model: "SNN_LOGN_GTV"
+  name: "[SNN]-[LOGN(S-E)+GTV(S)+GTV(T)]"
+  lr_modes: [1, 2, 3, 4]
+  graph_modes: [1,4]
+  graph: 'spatial'
+  grouping: 'edge'
+  r_hop: 1
+  weighing: 'size_normalized'
+  err_tol: 0.005
+  max_iter: 500 # 5000
+  rho_update: 1
+  rho_update_thr: 100
+  verbose: 0
+  lda_gtvs: []
+  gtvr_config:
+  - graph: 'spatial'
+    mode : [1,4]
+    p: 2
+    variation_type: GTV
+    normalization: 'none'
+  - graph: 'temporal'
+    mode : [4]
+    p: 1
+    variation_type: GTV
+    normalization: 'none'
 SNN_LOGNST_GTVST:
   model: "SNN_LOGN_GTV"
   name: "[SNN]-[LOGN(ST-N)+GTV(ST)]"
@@ -452,7 +510,7 @@ SNN_LOGNST_GTVST:
     normalization: 'out_degree'
 SNN_LOGNST_GTVT:
   model: "SNN_LOGN_GTV"
-  name: "[SNN]-[LOGN(ST-N)+GTV(S)]"
+  name: "[SNN]-[LOGN(ST-N)+GTV(T)]"
   lr_modes: [1, 2, 3, 4]
   graph_modes: [1,4]
   graph: 'spatio-temporal'

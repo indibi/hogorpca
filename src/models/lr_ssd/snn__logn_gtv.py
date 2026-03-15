@@ -118,7 +118,9 @@ class SNN__LOGN_GTV:
         self.report_freq = kwargs.get('report_freq', 1)
         self.verbose = kwargs.get('verbose', 0)
         self.metric_tracker = kwargs.get('metric_tracker', None)
-        
+        self.sp_solve = kwargs.get('sp_solve', False)
+        self.precompute_inv = kwargs.get('precompute_inv', False)
+
         self.psis = None
         self.lda = None
         self.lda_gtvs = None
@@ -166,6 +168,7 @@ class SNN__LOGN_GTV:
         self._initialize_rhos(rho)
 
         while not self.converged and self.it < max_iter:
+            self.max_iter = max_iter
             tic = perf_counter()
             # First Block Updates:
             ## {X, S_0, S_1,..., S_M, V_1, V_2,..., V_M}
@@ -226,15 +229,37 @@ class SNN__LOGN_GTV:
                 self.Ss[j] = Sj_temp/(rho_S[j] + rho_Z)
                 self.times[f'S_{j}'].append(perf_counter()-s_start)
             else:
-                Sj_rhs = rho_S[j]*matricize(
-                                    (self.S - self.Gamma_Ss[j]/rho_S[j]),
+                Sj_rhs1 = matricize((self.S - self.Gamma_Ss[j]/rho_S[j]),
                                     self.ops[j-1]['mode']
-                                    )+\
-                        rho_W[j-1]*(
-                            (self.Ws[j-1]- self.Gamma_Ws[j-1]/rho_W[j-1]
-                                ).T @ self.ops[j-1]['B.T']
-                            ).T 
-                self.Ss[j] = tensorize(#torch.sparse.spsolve(Sj_inv, Sj_rhs),
+                                    )
+                Sj_rhs2 = ((self.Ws[j-1]- self.Gamma_Ws[j-1]/rho_W[j-1]
+                            ).T @ self.ops[j-1]['B.T']
+                            ).T
+                # Sj_rhs = rho_S[j]*matricize(
+                #                     (self.S - self.Gamma_Ss[j]/rho_S[j]),
+                #                     self.ops[j-1]['mode']
+                #                     )+\
+                #         rho_W[j-1]*(
+                #             (self.Ws[j-1]- self.Gamma_Ws[j-1]/rho_W[j-1]
+                #                 ).T @ self.ops[j-1]['B.T']
+                #             ).T
+                if self.sp_solve:
+                    Sj_rhs = rho_S[j]*Sj_rhs1 + rho_W[j-1]*Sj_rhs2
+                    self.Ss[j] = tensorize(
+                                torch.sparse.spsolve(
+                                # torch.linalg.solve(
+                                    self.ops[j-1]['Inv'], Sj_rhs),
+                                self.Y.shape, self.ops[j-1]['mode']
+                                )
+                elif self.precompute_inv:
+                    Sj_rhs = Sj_rhs1 + Sj_rhs2
+                    self.Ss[j] = tensorize(
+                                (self.ops[j-1]['Inv']@ Sj_rhs),
+                                self.Y.shape, self.ops[j-1]['mode']
+                                )
+                else:
+                    Sj_rhs = rho_S[j]*Sj_rhs1 + rho_W[j-1]*Sj_rhs2
+                    self.Ss[j] = tensorize(#torch.sparse.spsolve(Sj_inv, Sj_rhs),
                                 torch.linalg.solve(
                                     self.ops[j-1]['Inv'], Sj_rhs),
                                 self.Y.shape, self.ops[j-1]['mode']
@@ -433,7 +458,16 @@ class SNN__LOGN_GTV:
         else:
             raise ValueError("rho must be a scalar or a dictionary.")
         for j in range(self.M):
-            self.ops[j]['Inv'] = (self.rhos[f'S_{j}'][-1]*self.ops[j]['I'] +\
+            if self.sp_solve:
+                self.ops[j]['Inv'] = (self.rhos[f'S_{j}'][-1]*self.ops[j]['I'] +\
+                                  self.rhos[f'W_{j}'][-1]*self.ops[j]['BB.T']
+                                )
+            elif self.precompute_inv:
+                self.ops[j]['Inv'] = torch.linalg.inv(
+                    (self.ops[j]['I'] +self.ops[j]['BB.T']).to_dense()
+                )
+            else:
+                self.ops[j]['Inv'] = (self.rhos[f'S_{j}'][-1]*self.ops[j]['I'] +\
                                   self.rhos[f'W_{j}'][-1]*self.ops[j]['BB.T']
                                 ).to_dense()
                                 # If sparse solver is not available,
@@ -572,7 +606,9 @@ class SNN__LOGN_GTV:
                         self.rhos[key].append(self.rhos[key][-1])
         elif self.rho_update == 'adaptive_spectral':
             raise NotImplementedError("Adaptive spectral step size update is not implemented yet.")
-        elif self.rho_update == 'domain_parametrization' and self.it %3==0 and self.it<50:
+        elif ((self.rho_update == 'domain_parametrization')
+               and (self.it %5==0)
+               and (self.it< self.max_iter//5)):
             """Practical use implementation of the domain parametrization step size update.
             
             Taken from the paper:
@@ -592,7 +628,14 @@ class SNN__LOGN_GTV:
                 self.rhos[key].append(dual_norm/first_b_norm)
             
             for j in range(self.M):
-                self.ops[j]['Inv'] = (self.rhos[f'S_{j}'][-1]*self.ops[j]['I'] +\
+                if self.sp_solve:
+                    self.ops[j]['Inv'] = (self.rhos[f'S_{j}'][-1]*self.ops[j]['I'] +\
+                                    self.rhos[f'W_{j}'][-1]*self.ops[j]['BB.T']
+                                    )
+                elif self.precompute_inv:
+                    pass
+                else:
+                    self.ops[j]['Inv'] = (self.rhos[f'S_{j}'][-1]*self.ops[j]['I'] +\
                                     self.rhos[f'W_{j}'][-1]*self.ops[j]['BB.T']
                                     ).to_dense()
                 
