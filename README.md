@@ -1,24 +1,45 @@
 # Higher-order Grouped Outlier Robust PCA
-This repository organizes the Higher-order Grouped Outlier Robust Principal Component Analysis (HoGORPCA) model implementations and anomaly detection experiments performed in the related publications. Proposed domain topology aware robust tensor decomposition models, under the $\mathrm{[SNN]-[LOGN+GTV]}$ umbrella incorporates the structure of the spatial, temporal domains into the tensor decomposition with graphs, and enhances the tensor decompositions' performance for detection of grouped (spatially or temporally) outliers. We use two structured sparsity promoting penalties, namely Latent Overlapping Grouped Norms and Graph Total Variation defined through a graph, extending the naive Lasso $\ell_1$ penalty used in Robust Tensor Decomposition frameworks.
+## Introduction
+This repository organizes the Higher-order Grouped Outlier Robust Principal Component Analysis (HoGORPCA) model implementations and anomaly detection experiments performed in [SIGPRO] and [SSP_2025].
+The family of HoGORPCA models, which refer with $\mathrm{[SNN]-[LOGN+GTV]}$, extend traditional Sparse $(\mathcal{S})$ + Low-rank $(\mathcal{X})$ tensor decomposition models, by incorporating the topological structure of spatial, temporal domains into the regularization of the sparse outliers $(\mathcal{S})$. Conventional tensor decomposition models usually only use Lasso penalty ($\ell_1$ norm) to regulate the sparsity of $(\mathcal{S})$ and neglects the modeling of likely grouped behavior of the outliers such as occurring in contiguous time segments. This is illustrated in Figure 1 (Image taken from [canyiliu TRPCA github page](https://github.com/canyilu/Tensor-Robust-Principal-Component-Analysis-TRPCA)).
+
+<img src="visuals/fig_trpca.png"
+    style="display: block; margin: auto;"
+    width="40%"
+    >
+<p style="text-align: center; font-style: italic;">
+  <strong>Figure 1:</strong> Robust Tensor PCA, tensor decomposition model.
+</p>
+
+Proposed domain topology aware robust tensor decomposition models, under the $\mathrm{[SNN]-[LOGN+GTV]}$ umbrella incorporates the structure of the spatial, temporal domains into the tensor decomposition with graphs, and enhances the tensor decompositions' performance with the detection of grouped (spatially or temporally) outliers. We use two structured sparsity promoting penalties, namely Latent Overlapping Grouped Norms and Graph Total Variation, both defined through a graph, extending the naive Lasso $\ell_1$ penalty used in Robust Tensor Decomposition frameworks.
 
 <div style="display: flex; justify-content: center;">
-    <figure>
+    <!-- <figure> -->
         <img src="visuals/gst_fig.png"
-            style="margin: 8px;"
-            width="100%">
-        <strong>(a)</strong> <span style="font-style: italic;">Example illustration of a spatial proximity graph and temporal line graph connecting consecutive time points $\mathfrak{G}_S, \mathfrak{G}_T$ along with their product graph $\mathfrak{G}_ST$</span>
+            style="margin: 8px; justify-content: center;"
+            width="600">
+        <!-- <strong>(a)</strong> <span style="font-style: italic;">Example illustration of a spatial proximity graph and temporal line graph connecting consecutive time points $\mathfrak{G}_S, \mathfrak{G}_T$ along with their product graph $\mathfrak{G}_ST$</span> -->
     </figure>
-    <figure>
+    <!-- <figure>
         <img src="visuals/nyc_zones_3.png"
             style="margin: 8px;"
             width="120%">
             <strong>(b)</strong> <span style="font-style: italic;">Spatial Graph representing adjacency between 81 taxi zones in NYC and mean hourly drop-offs statistics accross Zones, Hours and Days.</span>
-    </figure>
+    </figure> -->
 </div>
 <p style="text-align: center; font-style: italic;">
-  <strong>Figure 1:</strong> Main caption describing both subfigures.
+  <strong>Figure 2:</strong> Example illustration of a spatial proximity graph and temporal line graph connecting consecutive time points $\mathfrak{G}_S, \mathfrak{G}_T$ along with their product graph $\mathfrak{G}_ST$.
 </p>
 
+We illustrate the effects of the GTV and LOGN regularizations, we apply the regularizations on recovering two different temporally grouped anomaly segments.
+
+<img src="visuals/logn_and_gtv.png"
+    style="display: block; margin: auto;"
+    width="40%"
+    >
+<p style="text-align: center; font-style: italic;">
+  <strong>Figure 3:</strong> LOGN and GTV regularizers applied to recover a noisy temporal signal with two grouped anomalies, namely Coherent anomaly with coherent signs and Incoherent anomaly with incoherent, non-smooth signs. LOGN is better at recovering Inoherent anomaly segments whereas GTV is better at recovering the Coherent ones due to the smoothing effect of GTV regularizer.
+</p>
 
 ## Model Implementations
 The implementations of the Higher-Order Grouped Outlier Robust PCA models can be found in `./src/models/lr_ssd/` folders. Within this folder,
