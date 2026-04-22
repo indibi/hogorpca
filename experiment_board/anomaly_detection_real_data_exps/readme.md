@@ -1,5 +1,5 @@
 # Real Dataset Anomaly Detection Experiments
-<p align="right">  <b>Created:</b> 7/22/2025, <b>Last Updated: </b> 3/14/2026, <b>Author: </b> Mert Indibi</p>
+<p align="right">  <b>Created:</b> 7/22/2025, <b>Last Updated: </b> 4/22/2026, <b>Author: </b> Mert Indibi</p>
 This folder contains scripts used to perform anomaly detection experiments on Server Machine Dataset, Event Detection with 2018 NYC Yellow Taxi Records and Airport-Beach-Urban Hyperspectral Images.
 
 ---------------
@@ -26,6 +26,7 @@ The jupyter notebooks `smd_and_nyc_pipeline.ipynb` and `hsi_pipeline.ipynb` cont
 **Notes:**
 - **Hyper-parameter selection:** We followed the theorems provided by the authors of the models using the same variance estimates as we used in our models. These variances are estimates for additive gaussian white noise. Optimal hyper-parameter selection is a challenging task and the results could likely be improved with more effort.
 - **Hyperspectral Images:** We initally applied the same noise estimation method we used in SMD and NYC Experiments, but our estimation method proved not robust in this dataset. We think this may be related to a de-noising process applied to the images where the noisy spectral bands of the data were removed. Due to this, we set the $\mathrm{[SNN]+[LOGN+GTV]}$ hyper-parameters corresponding to the the GTV regularization $\lambda_{m}$ slightly differently. For the `RTD:OITNN-L`, `RTD:OITNN-O` and `RTD:TNN` models, we set the hyper-parameters similar to before using the estimated variance to `0.1`, which is very low when the scale of the values is taken into account.
+- **Hyperspectral Image Visualizations:** The scripts ran to create the some of the visuals can be found in `hsi_result_visualization.ipynb` notebook. Creation of the 3D images may require additional packages such as [Mayavi](https://docs.enthought.com/mayavi/mayavi/index.html#), [HyperSpy](https://hyperspy.org/), [Spectral Python (SPy)](https://www.spectralpython.net/)
 
 `configs` folder contains `model_configs.yaml` file that is used to specify and store the proposed family of $\mathrm{[SNN]+[LOGN+GTV]}$ domain topology aware robust tensor decomposition models.
 

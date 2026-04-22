@@ -31,6 +31,17 @@ Proposed domain topology aware robust tensor decomposition models, under the $\m
   <strong>Figure 2:</strong> Example illustration of a spatial proximity graph and temporal line graph connecting consecutive time points $\mathfrak{G}_S, \mathfrak{G}_T$ along with their product graph $\mathfrak{G}_ST$.
 </p>
 
+The extension of $\ell_1$ norm regularizer to include spatial information through $[\mathrm{LOGN(S-E)}]$ (Spatial edge), $[\mathrm{LOGN(S-N)}]$ (Spatial neighborhood), and $[\mathrm{LOGN(S-N)+GTV(S)}]$ looks like below in action.
+
+<img src="visuals/urban_1_together.png"
+    style="display: block; margin: auto;"
+    width="95%"
+    >
+<p style="text-align: center; font-style: italic;">
+  <strong>Figure 3:</strong> Visualization of the anomaly scores obtained for Urban-1 scene from [ABU HSI]. Top row (from left to right): Pseudo-RGB view of the scene, anomaly scores obtained by HoRPCA, anomaly scores obtained by L1 + GTV(S), Precision-Recall Curves. Bottom row (from left to right): Anomaly Labels, LOGN(S-E), LOGN(S-N), ROC Curves.
+</p>
+
+
 We illustrate the effects of the GTV and LOGN regularizations, we apply the regularizations on recovering two different temporally grouped anomaly segments.
 
 <img src="visuals/logn_and_gtv.png"
@@ -38,7 +49,7 @@ We illustrate the effects of the GTV and LOGN regularizations, we apply the regu
     width="40%"
     >
 <p style="text-align: center; font-style: italic;">
-  <strong>Figure 3:</strong> LOGN and GTV regularizers applied to recover a noisy temporal signal with two grouped anomalies, namely Coherent anomaly with coherent signs and Incoherent anomaly with incoherent, non-smooth signs. LOGN is better at recovering Inoherent anomaly segments whereas GTV is better at recovering the Coherent ones due to the smoothing effect of GTV regularizer.
+  <strong>Figure 4:</strong> LOGN and GTV regularizers applied to recover a noisy temporal signal with two grouped anomalies, namely Coherent anomaly with coherent signs and Incoherent anomaly with incoherent, non-smooth signs. LOGN is better at recovering Inoherent anomaly segments whereas GTV is better at recovering the Coherent ones due to the smoothing effect of GTV regularizer.
 </p>
 
 ## Model Implementations
@@ -69,6 +80,7 @@ Example applications, experiment and experiment processes can be found in `./exp
 
 - [SIGPRO]: Indibi, M., Aviyente, S. (2025). “Spatio-temporal Anomaly Detection: A Regularized Robust Tensor Decomposition with Graph Total Variation and Grouped Sparsity”, Under revision at EURASIP Journal of Signal Processing
 - [SSP_2025]: Indibi, M., & Aviyente, S. (2025, June). Higher-Order Grouped Outlier Robust PCA for Spatio-temporal Anomaly Detection. In 2025     IEEE Statistical Signal Processing Workshop (SSP) (pp. 176-180). IEEE.
+- [ABU Hyperspectral Image](https://xudongkang.weebly.com/data-sets.html)
 
 
 ## Contributors
